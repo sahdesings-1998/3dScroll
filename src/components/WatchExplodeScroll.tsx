@@ -3,9 +3,10 @@ import { motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence }
 import { Volume2, VolumeX, Sparkles, ChevronDown, Compass, Cpu, Layers, ShieldCheck } from 'lucide-react';
 import TechSpecs from './TechSpecs';
 import Footer from './Footer';
+import logoImg from '../assets/logo.png';
 
 const TOTAL_FRAMES = 40;
-const BACKGROUND_COLOR = '#050505';
+const BACKGROUND_COLOR = '#ffffff';
 
 // Pre-import frames for Vite bundler optimization
 const frameModules = import.meta.glob('/src/assets/SR-watch/ezgif-frame-*.jpg', {
@@ -135,7 +136,7 @@ export const WatchExplodeScroll: React.FC = () => {
     ctx.save();
     ctx.scale(dpr, dpr);
 
-    // Clear background cleanly
+    // Clear background cleanly in white
     ctx.fillStyle = BACKGROUND_COLOR;
     ctx.fillRect(0, 0, clientWidth, clientHeight);
 
@@ -202,26 +203,26 @@ export const WatchExplodeScroll: React.FC = () => {
   }, [isLoading, images, renderFrame]);
 
   return (
-    <div className="relative w-full min-h-screen bg-[#050505] text-white">
-      {/* 1. Fullscreen Preloader */}
+    <div className="relative w-full min-h-screen bg-white text-slate-900">
+      {/* 1. Fullscreen White Preloader */}
       <AnimatePresence>
         {isLoading && (
           <motion.div
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8, ease: 'easeInOut' }}
-            className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#050505] text-white"
+            className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-white text-slate-900"
           >
             <div className="absolute w-[350px] h-[350px] bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
 
             <div className="relative z-10 flex flex-col items-center space-y-6">
-              <div className="relative flex items-center justify-center w-24 h-24">
+              <div className="relative flex items-center justify-center w-28 h-28">
                 <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
                   <circle
                     cx="50"
                     cy="50"
                     r="42"
-                    stroke="rgba(255,255,255,0.08)"
+                    stroke="rgba(0,0,0,0.06)"
                     strokeWidth="3"
                     fill="transparent"
                   />
@@ -229,7 +230,7 @@ export const WatchExplodeScroll: React.FC = () => {
                     cx="50"
                     cy="50"
                     r="42"
-                    stroke="#d4af37"
+                    stroke="#b45309"
                     strokeWidth="3"
                     fill="transparent"
                     strokeDasharray="264"
@@ -238,26 +239,30 @@ export const WatchExplodeScroll: React.FC = () => {
                     transition={{ ease: 'linear' }}
                   />
                 </svg>
-                <Compass className="absolute w-8 h-8 text-amber-400 animate-pulse" />
+                <img
+                  src={logoImg}
+                  alt="SR TAKAT Logo"
+                  className="absolute w-12 h-12 object-contain animate-pulse"
+                />
               </div>
 
               <div className="text-center space-y-2">
-                <span className="text-xs font-mono-tech tracking-[0.3em] uppercase text-amber-400/80 font-medium">
+                <span className="text-xs font-mono-tech tracking-[0.3em] uppercase text-amber-700 font-semibold">
                   Initializing Horological Engine
                 </span>
-                <h2 className="text-2xl font-light tracking-tight text-white">
-                  SR-TAKAT <span className="text-amber-400 font-semibold">CHRONO</span>
+                <h2 className="text-2xl font-light tracking-tight text-slate-900">
+                  TAKAT <span className="text-amber-600 font-semibold">CHRONO</span>
                 </h2>
               </div>
 
               <div className="w-64 space-y-2">
-                <div className="w-full h-[2px] bg-white/10 rounded-full overflow-hidden">
+                <div className="w-full h-[2px] bg-slate-200 rounded-full overflow-hidden">
                   <motion.div
-                    className="h-full bg-gradient-to-r from-amber-500 to-amber-200"
+                    className="h-full bg-gradient-to-r from-amber-600 to-amber-400"
                     style={{ width: `${loadProgress}%` }}
                   />
                 </div>
-                <div className="flex justify-between text-[11px] font-mono-tech text-white/60">
+                <div className="flex justify-between text-[11px] font-mono-tech text-slate-500 font-medium">
                   <span>PRELOADING 4K FRAMES</span>
                   <span>{loadProgress}%</span>
                 </div>
@@ -267,27 +272,22 @@ export const WatchExplodeScroll: React.FC = () => {
         )}
       </AnimatePresence>
 
-      {/* 2. Persistent Full-Viewport Cover Canvas with Adaptive Darkness Overlay */}
-      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden bg-[#050505]">
+      {/* 2. Persistent Full-Viewport Cover Canvas in True 4K Crisp Quality (Zero Blur / Zero Haze) */}
+      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden bg-white">
         <canvas
           ref={canvasRef}
           className="w-full h-full object-cover pointer-events-none"
         />
-
-        {/* Dynamic Darkness & Contrast Overlay Gradients for 100% Readability */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,0.15)_0%,_rgba(5,5,5,0.65)_65%,_rgba(5,5,5,0.92)_100%)] pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/85 via-transparent to-[#050505]/95 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-[#050508]/90 via-[#050508]/30 to-transparent pointer-events-none" />
       </div>
 
       {/* 3. Persistent Floating Telemetry HUD */}
       {!isLoading && (
         <div className="fixed inset-0 z-30 pointer-events-none">
           {/* Top Bar HUD */}
-          <div className="absolute top-6 left-6 right-6 flex items-center justify-between pointer-events-none">
-            <div className="flex items-center space-x-3 bg-[#0a0a0f]/80 backdrop-blur-xl px-4 py-2 rounded-full border border-white/20 shadow-lg">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-              <span className="text-xs font-mono-tech text-white/90 uppercase tracking-wider font-medium">
+          {/* <div className="absolute top-6 left-6 right-6 flex items-center justify-between pointer-events-none">
+            <div className="flex items-center space-x-3 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full border border-slate-200/80 shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+              <span className="text-xs font-mono-tech text-slate-900 uppercase tracking-wider font-semibold">
                 SR-TAKAT // CALIBRE 01
               </span>
             </div>
@@ -295,72 +295,71 @@ export const WatchExplodeScroll: React.FC = () => {
             <div className="flex items-center space-x-3 pointer-events-auto">
               <button
                 onClick={() => setIsMuted(!isMuted)}
-                className="bg-[#0a0a0f]/80 backdrop-blur-xl p-2.5 rounded-full text-white/80 hover:text-white border border-white/20 hover:border-amber-400 transition-all duration-300 shadow-lg group"
+                className="bg-white/80 backdrop-blur-md p-2.5 rounded-full text-slate-700 hover:text-slate-900 border border-slate-200/80 hover:border-amber-600 transition-all duration-300 shadow-sm group cursor-pointer"
                 title={isMuted ? 'Unmute mechanical ticks' : 'Mute audio'}
               >
                 {isMuted ? (
-                  <VolumeX className="w-4 h-4 text-white/60 group-hover:text-white transition-colors" />
+                  <VolumeX className="w-4 h-4 text-slate-500 group-hover:text-slate-900 transition-colors" />
                 ) : (
-                  <Volume2 className="w-4 h-4 text-amber-400 animate-pulse" />
+                  <Volume2 className="w-4 h-4 text-amber-600 animate-pulse" />
                 )}
               </button>
             </div>
-          </div>
+          </div> */}
 
           {/* Bottom Bar HUD */}
-          <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between pointer-events-none">
-            <div className="flex items-center space-x-2 bg-[#0a0a0f]/80 backdrop-blur-xl px-4 py-2 rounded-full border border-white/20 text-xs font-mono-tech text-white/90 shadow-lg">
-              <span className="text-amber-400 font-semibold">FRAME</span>
+          {/* <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between pointer-events-none">
+            <div className="flex items-center space-x-2 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full border border-slate-200/80 text-xs font-mono-tech text-slate-900 shadow-sm">
+              <span className="text-amber-700 font-bold">FRAME</span>
               <span>{String(currentFrameIndex + 1).padStart(2, '0')}</span>
-              <span className="text-white/40">/</span>
-              <span className="text-white/70">{TOTAL_FRAMES}</span>
+              <span className="text-slate-400">/</span>
+              <span className="text-slate-600">{TOTAL_FRAMES}</span>
             </div>
 
-            <div className="hidden sm:flex items-center space-x-3 bg-[#0a0a0f]/80 backdrop-blur-xl px-5 py-2 rounded-full border border-white/20 shadow-lg">
-              <span className="text-[11px] font-mono-tech text-white/70 uppercase tracking-widest font-medium">
+            <div className="hidden sm:flex items-center space-x-3 bg-white/80 backdrop-blur-md px-5 py-2 rounded-full border border-slate-200/80 shadow-sm">
+              <span className="text-[11px] font-mono-tech text-slate-600 uppercase tracking-widest font-semibold">
                 DISASSEMBLY STATE
               </span>
-              <div className="w-24 h-1.5 bg-white/20 rounded-full overflow-hidden">
+              <div className="w-24 h-1.5 bg-slate-200 rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-amber-400 transition-all duration-75"
+                  className="h-full bg-amber-600 transition-all duration-75"
                   style={{ width: `${((currentFrameIndex + 1) / TOTAL_FRAMES) * 100}%` }}
                 />
               </div>
-              <span className="text-xs font-mono-tech text-amber-400 font-semibold">
+              <span className="text-xs font-mono-tech text-amber-700 font-bold">
                 {Math.round(((currentFrameIndex + 1) / TOTAL_FRAMES) * 100)}%
               </span>
             </div>
-          </div>
+          </div> */}
 
           {/* Corner Crosshair Accents */}
-          <div className="absolute top-8 left-8 w-4 h-4 border-t-2 border-l-2 border-white/30 pointer-events-none" />
-          <div className="absolute top-8 right-8 w-4 h-4 border-t-2 border-r-2 border-white/30 pointer-events-none" />
-          <div className="absolute bottom-8 left-8 w-4 h-4 border-b-2 border-l-2 border-white/30 pointer-events-none" />
-          <div className="absolute bottom-8 right-8 w-4 h-4 border-b-2 border-r-2 border-white/30 pointer-events-none" />
+          <div className="absolute top-8 left-8 w-4 h-4 border-t-2 border-l-2 border-slate-300/80 pointer-events-none" />
+          <div className="absolute top-8 right-8 w-4 h-4 border-t-2 border-r-2 border-slate-300/80 pointer-events-none" />
+          <div className="absolute bottom-8 left-8 w-4 h-4 border-b-2 border-l-2 border-slate-300/80 pointer-events-none" />
+          <div className="absolute bottom-8 right-8 w-4 h-4 border-b-2 border-r-2 border-slate-300/80 pointer-events-none" />
         </div>
       )}
 
-      {/* 4. Minimalist Bottom-Left Aligned Hero Section */}
+      {/* 4. Minimalist Bottom-Left Hero Section (Unobscured 4K Focus) */}
       <div className="relative z-10 w-full bg-transparent">
 
         {/* SECTION 1: MINIMALIST HERO (BOTTOM-LEFT ALIGNED) */}
-        <section className="relative min-h-screen flex items-end justify-start px-6 sm:px-12 md:px-16 pb-16 sm:pb-24 pt-32 bg-transparent">
-          <div className="max-w-xl space-y-4 bg-[#050508]/75 backdrop-blur-2xl p-6 sm:p-8 md:p-10 rounded-2xl border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.85)]">
-            <div className="inline-flex items-center space-x-2 bg-amber-400/15 backdrop-blur-md px-3.5 py-1 rounded-full border border-amber-400/40 text-amber-300 text-[11px] font-mono-tech uppercase tracking-widest font-semibold">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              <span>CALIBRE SR-01</span>
-            </div>
+        <section className="relative min-h-screen flex items-end justify-start px-8 sm:px-16 md:px-20 pb-20 sm:pb-28 pt-32 bg-transparent">
+          <div className="space-y-3 max-w-lg">
+            <span className="text-[11px] font-mono-tech uppercase tracking-[0.3em] text-amber-800 font-bold block">
+              CALIBRE SR-01
+            </span>
 
-            <h1 className="text-4xl sm:text-6xl md:text-7xl font-extralight tracking-tighter text-white uppercase drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)]">
+            <h1 className="text-5xl sm:text-7xl md:text-8xl font-extralight tracking-tighter text-slate-900 uppercase leading-none">
               SR-TAKAT
             </h1>
 
-            <p className="text-sm sm:text-base md:text-lg text-gray-200 font-light tracking-wide leading-relaxed drop-shadow-md">
+            <p className="text-xs sm:text-sm font-mono-tech text-slate-600 tracking-[0.2em] uppercase pt-1 font-medium">
               PRECISION HOROLOGY UNVEILED
             </p>
 
-            <div className="pt-3 flex items-center space-x-3 text-amber-300/90 text-xs font-mono-tech tracking-widest uppercase font-medium">
-              <ChevronDown className="w-4 h-4 animate-bounce text-amber-400" />
+            <div className="pt-4 flex items-center space-x-2 text-slate-700 text-xs font-mono-tech tracking-widest uppercase font-semibold">
+              <ChevronDown className="w-4 h-4 animate-bounce text-amber-700" />
               <span>SCROLL TO DISASSEMBLE</span>
             </div>
           </div>
@@ -368,73 +367,73 @@ export const WatchExplodeScroll: React.FC = () => {
 
         {/* SECTION 2: FEATURE #1 - CHASSIS */}
         <section id="chassis" className="min-h-screen flex items-center px-4 sm:px-12 md:px-20 py-20 bg-transparent">
-          <div className="max-w-lg bg-[#08080d]/80 backdrop-blur-xl p-8 sm:p-10 rounded-3xl border border-white/15 space-y-5 shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
-            <div className="flex items-center space-x-3 text-amber-300 text-xs font-mono-tech tracking-widest uppercase font-semibold">
+          <div className="max-w-lg bg-white/45 backdrop-blur-md p-8 sm:p-10 rounded-3xl border border-slate-200/90 space-y-5 shadow-[0_15px_35px_rgba(0,0,0,0.05)] hover:bg-white/60 hover:border-amber-500/40 hover:shadow-lg transition-all duration-300">
+            <div className="flex items-center space-x-3 text-amber-700 text-xs font-mono-tech tracking-widest uppercase font-semibold">
               <Cpu className="w-4 h-4" />
               <span>01 // CHASSIS ARCHITECTURE</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl font-light text-white tracking-tight drop-shadow-md">
+            <h2 className="text-3xl sm:text-4xl font-light text-slate-900 tracking-tight">
               TITANIUM CORE
             </h2>
 
-            <p className="text-sm sm:text-base text-gray-200 leading-relaxed font-normal">
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
               Forged from Grade 5 titanium. Watch components expand and separate smoothly in the background, exposing 348 micro-engineered internal elements with extreme resolution.
             </p>
 
-            <div className="pt-4 flex items-center gap-4 text-xs font-mono-tech text-gray-300 border-t border-white/15">
-              <div>WEIGHT: <span className="text-amber-300 font-semibold">64G</span></div>
-              <div className="text-white/30">•</div>
-              <div>TOLERANCE: <span className="text-amber-300 font-semibold">0.002MM</span></div>
+            <div className="pt-4 flex items-center gap-4 text-xs font-mono-tech text-slate-600 border-t border-slate-200">
+              <div>WEIGHT: <span className="text-amber-700 font-bold">64G</span></div>
+              <div className="text-slate-300">•</div>
+              <div>TOLERANCE: <span className="text-amber-700 font-bold">0.002MM</span></div>
             </div>
           </div>
         </section>
 
         {/* SECTION 3: FEATURE #2 - ESCAPEMENT */}
         <section id="movement" className="min-h-screen flex items-center justify-end px-4 sm:px-12 md:px-20 py-20 bg-transparent">
-          <div className="max-w-lg bg-[#08080d]/80 backdrop-blur-xl p-8 sm:p-10 rounded-3xl border border-white/15 space-y-5 text-right shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
-            <div className="flex items-center justify-end space-x-3 text-amber-300 text-xs font-mono-tech tracking-widest uppercase font-semibold">
+          <div className="max-w-lg bg-white/45 backdrop-blur-md p-8 sm:p-10 rounded-3xl border border-slate-200/90 space-y-5 text-right shadow-[0_15px_35px_rgba(0,0,0,0.05)] hover:bg-white/60 hover:border-amber-500/40 hover:shadow-lg transition-all duration-300">
+            <div className="flex items-center justify-end space-x-3 text-amber-700 text-xs font-mono-tech tracking-widest uppercase font-semibold">
               <span>02 // ESCAPEMENT</span>
               <Layers className="w-4 h-4" />
             </div>
 
-            <h2 className="text-3xl sm:text-4xl font-light text-white tracking-tight drop-shadow-md">
+            <h2 className="text-3xl sm:text-4xl font-light text-slate-900 tracking-tight">
               MICRO-MECHANICAL TOURBILLON
             </h2>
 
-            <p className="text-sm sm:text-base text-gray-200 leading-relaxed font-normal">
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
               As you scroll further down, the internal floating tourbillon cage reaches maximum explosion in the backdrop, oscillating at 28,800 vibrations per hour.
             </p>
 
-            <div className="pt-4 flex items-center justify-end gap-4 text-xs font-mono-tech text-gray-300 border-t border-white/15">
-              <div>POWER RESERVE: <span className="text-amber-300 font-semibold">72 HOURS</span></div>
-              <div className="text-white/30">•</div>
-              <div>FREQUENCY: <span className="text-amber-300 font-semibold">4HZ</span></div>
+            <div className="pt-4 flex items-center justify-end gap-4 text-xs font-mono-tech text-slate-600 border-t border-slate-200">
+              <div>POWER RESERVE: <span className="text-amber-700 font-bold">72 HOURS</span></div>
+              <div className="text-slate-300">•</div>
+              <div>FREQUENCY: <span className="text-amber-700 font-bold">4HZ</span></div>
             </div>
           </div>
         </section>
 
         {/* SECTION 4: REASSEMBLY & CTA */}
         <section id="craftsmanship" className="min-h-screen flex flex-col items-center justify-center text-center px-4 py-20 bg-transparent">
-          <div className="bg-[#08080d]/85 backdrop-blur-xl p-8 sm:p-12 rounded-3xl border border-amber-400/40 space-y-6 max-w-xl shadow-[0_20px_60px_rgba(0,0,0,0.9)]">
-            <div className="inline-flex items-center space-x-2 text-amber-300 text-xs font-mono-tech tracking-widest uppercase font-semibold">
-              <ShieldCheck className="w-4 h-4 text-amber-400" />
+          <div className="bg-white/45 backdrop-blur-md p-8 sm:p-12 rounded-3xl border border-amber-500/30 space-y-6 max-w-xl shadow-[0_15px_35px_rgba(0,0,0,0.05)] hover:bg-white/60 hover:border-amber-500/50 hover:shadow-lg transition-all duration-300">
+            <div className="inline-flex items-center space-x-2 text-amber-700 text-xs font-mono-tech tracking-widest uppercase font-semibold">
+              <ShieldCheck className="w-4 h-4 text-amber-600" />
               <span>REASSEMBLED PERFECTION</span>
             </div>
 
-            <h2 className="text-3xl sm:text-5xl font-light tracking-tight text-white uppercase drop-shadow-md">
+            <h2 className="text-3xl sm:text-5xl font-light tracking-tight text-slate-900 uppercase">
               SCULPTED FOR ETERNITY
             </h2>
 
-            <p className="text-sm sm:text-base text-gray-200 leading-relaxed max-w-md mx-auto font-normal">
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-md mx-auto font-normal">
               The watch movement smoothly converges back into its titanium housing as you approach the technical specifications below.
             </p>
 
             <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-gradient-to-r from-amber-500 via-amber-400 to-amber-300 text-black font-bold text-sm tracking-wider uppercase hover:shadow-[0_0_30px_rgba(212,175,55,0.6)] transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer">
+              <button className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-slate-900 text-white font-bold text-sm tracking-wider uppercase hover:bg-amber-600 transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer shadow-lg">
                 RESERVE EDITION 01
               </button>
-              <a href="#specs" className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white/10 text-white text-sm font-semibold tracking-wider uppercase hover:bg-white/20 border border-white/25 transition-all duration-300 inline-block">
+              <a href="#specs" className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white/70 text-slate-800 text-sm font-semibold tracking-wider uppercase hover:bg-white border border-slate-300 transition-all duration-300 inline-block">
                 EXPLORE SPECIFICATIONS
               </a>
             </div>
