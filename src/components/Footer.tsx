@@ -5,16 +5,16 @@ export const Footer: React.FC = () => {
   return (
     <footer className="relative z-10 bg-transparent text-white border-t border-white/10 pt-16 pb-12 px-6">
       <div className="max-w-7xl mx-auto space-y-16">
-        {/* Transparent Newsletter CTA Card */}
-        <div className="bg-white/[0.02] backdrop-blur-xs p-8 md:p-12 rounded-3xl border border-white/10 flex flex-col lg:flex-row items-center justify-between gap-8">
+        {/* Accessible High-Contrast Newsletter CTA Card */}
+        <div className="bg-[#08080d]/85 backdrop-blur-xl p-8 md:p-12 rounded-3xl border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex flex-col lg:flex-row items-center justify-between gap-8">
           <div className="space-y-2 text-center lg:text-left">
-            <span className="text-xs font-mono-tech text-amber-400 tracking-widest uppercase">
+            <span className="text-xs font-mono-tech text-amber-300 tracking-widest uppercase font-semibold">
               EXCLUSIVE ALLOCATION
             </span>
-            <h3 className="text-2xl sm:text-4xl font-light text-white/90">
+            <h3 className="text-2xl sm:text-4xl font-light text-white drop-shadow-sm">
               JOIN THE PRIVATE REGISTRY
             </h3>
-            <p className="text-sm text-white/50 max-w-md font-light">
+            <p className="text-sm text-gray-200 max-w-md font-normal">
               Receive priority access to limited batch drops and technical horology blueprints.
             </p>
           </div>
@@ -23,9 +23,9 @@ export const Footer: React.FC = () => {
             <input
               type="email"
               placeholder="Enter your email address"
-              className="w-full sm:w-80 px-5 py-3.5 rounded-full bg-white/5 border border-white/15 text-sm text-white focus:outline-none focus:border-amber-400 font-mono-tech placeholder:text-white/30"
+              className="w-full sm:w-80 px-5 py-3.5 rounded-full bg-white/10 border border-white/20 text-sm text-white focus:outline-none focus:border-amber-400 font-mono-tech placeholder:text-white/40"
             />
-            <button className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-amber-400 text-black font-semibold text-xs tracking-widest uppercase flex items-center justify-center space-x-2 hover:bg-amber-300 transition-colors">
+            <button className="w-full sm:w-auto px-7 py-3.5 rounded-full bg-gradient-to-r from-amber-400 to-amber-300 text-black font-bold text-xs tracking-widest uppercase flex items-center justify-center space-x-2 hover:bg-amber-300 transition-colors cursor-pointer">
               <span>SUBSCRIBE</span>
               <ArrowRight className="w-4 h-4" />
             </button>

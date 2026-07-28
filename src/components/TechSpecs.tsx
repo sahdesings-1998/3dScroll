@@ -65,34 +65,34 @@ export const TechSpecs: React.FC = () => {
           </p>
         </div>
 
-        {/* Transparent Specs Grid */}
+        {/* Accessible High-Contrast Specs Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {specs.map((item, idx) => {
             const Icon = item.icon;
             return (
               <div
                 key={idx}
-                className="bg-white/[0.02] backdrop-blur-xs p-6 sm:p-8 rounded-2xl border border-white/10 hover:border-amber-400/40 hover:bg-white/[0.04] transition-all duration-300 group hover:-translate-y-1"
+                className="bg-[#08080d]/80 backdrop-blur-xl p-6 sm:p-8 rounded-2xl border border-white/15 hover:border-amber-400/50 hover:bg-[#0c0c14]/90 transition-all duration-300 group hover:-translate-y-1 shadow-[0_10px_30px_rgba(0,0,0,0.6)]"
               >
                 <div className="flex items-center justify-between mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-amber-400/30 transition-colors">
+                  <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center border border-white/20 group-hover:border-amber-400/50 transition-colors">
                     <Icon className="w-5 h-5 text-amber-400" />
                   </div>
-                  <span className="text-[10px] font-mono-tech px-2.5 py-1 rounded-full bg-amber-400/10 text-amber-400 border border-amber-400/20">
+                  <span className="text-[10px] font-mono-tech px-2.5 py-1 rounded-full bg-amber-400/15 text-amber-300 border border-amber-400/30 font-semibold">
                     {item.tag}
                   </span>
                 </div>
 
                 <div className="space-y-1">
-                  <span className="text-xs font-mono-tech text-white/40 tracking-wider">
+                  <span className="text-xs font-mono-tech text-amber-300/80 tracking-wider font-medium">
                     {item.title}
                   </span>
-                  <div className="text-3xl font-light text-white/90 group-hover:text-amber-400 transition-colors">
+                  <div className="text-3xl font-light text-white group-hover:text-amber-300 transition-colors drop-shadow-sm">
                     {item.value}
                   </div>
                 </div>
 
-                <p className="mt-4 pt-4 border-t border-white/10 text-xs text-white/60 font-light">
+                <p className="mt-4 pt-4 border-t border-white/15 text-xs text-gray-300 font-normal leading-relaxed">
                   {item.detail}
                 </p>
               </div>

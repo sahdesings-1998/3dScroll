@@ -16,44 +16,46 @@ export const Navbar: React.FC = () => {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ${
-        scrolled ? 'py-3 bg-[#050505]/80 backdrop-blur-xl border-b border-white/10' : 'py-6 bg-transparent'
+        scrolled
+          ? 'py-3 bg-[#050508]/90 backdrop-blur-2xl border-b border-white/15 shadow-xl'
+          : 'py-6 bg-gradient-to-b from-[#050505]/90 to-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         {/* Brand Logo */}
         <a href="#" className="flex items-center space-x-3 group">
-          <div className="w-9 h-9 rounded-full bg-amber-400/10 border border-amber-400/30 flex items-center justify-center group-hover:border-amber-400 transition-colors">
+          <div className="w-9 h-9 rounded-full bg-amber-400/20 border border-amber-400/50 flex items-center justify-center group-hover:border-amber-400 transition-colors shadow-md">
             <Compass className="w-5 h-5 text-amber-400" />
           </div>
           <div className="flex flex-col">
-            <span className="text-lg font-light tracking-tight text-white/90 group-hover:text-white transition-colors">
+            <span className="text-lg font-light tracking-tight text-white group-hover:text-amber-300 transition-colors drop-shadow-sm">
               SR-TAKAT
             </span>
-            <span className="text-[9px] font-mono-tech text-white/40 tracking-widest uppercase">
+            <span className="text-[9px] font-mono-tech text-amber-300/80 tracking-widest uppercase font-medium">
               HOROLOGY LABS
             </span>
           </div>
         </a>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8 text-xs font-mono-tech tracking-widest uppercase text-white/60">
-          <a href="#chassis" className="hover:text-amber-400 transition-colors">
+        <nav className="hidden md:flex items-center space-x-8 text-xs font-mono-tech tracking-widest uppercase text-gray-200 bg-[#0a0a0f]/60 backdrop-blur-md px-6 py-2 rounded-full border border-white/15">
+          <a href="#chassis" className="hover:text-amber-300 transition-colors font-medium">
             CHASSIS
           </a>
-          <a href="#movement" className="hover:text-amber-400 transition-colors">
+          <a href="#movement" className="hover:text-amber-300 transition-colors font-medium">
             MOVEMENT
           </a>
-          <a href="#specs" className="hover:text-amber-400 transition-colors">
+          <a href="#specs" className="hover:text-amber-300 transition-colors font-medium">
             SPECIFICATIONS
           </a>
-          <a href="#craftsmanship" className="hover:text-amber-400 transition-colors">
+          <a href="#craftsmanship" className="hover:text-amber-300 transition-colors font-medium">
             CRAFTSMANSHIP
           </a>
         </nav>
 
         {/* Header Right Action */}
         <div className="hidden md:flex items-center space-x-4">
-          <button className="px-5 py-2 rounded-full glass-panel hover:bg-white/10 border border-white/15 text-xs font-mono-tech text-white/90 tracking-wider uppercase flex items-center space-x-2 transition-all">
+          <button className="px-5 py-2 rounded-full bg-[#0a0a0f]/80 backdrop-blur-md hover:bg-amber-400/20 border border-amber-400/40 text-xs font-mono-tech text-white tracking-wider uppercase flex items-center space-x-2 transition-all shadow-md cursor-pointer">
             <span>PRE-ORDER</span>
             <ArrowUpRight className="w-3.5 h-3.5 text-amber-400" />
           </button>
