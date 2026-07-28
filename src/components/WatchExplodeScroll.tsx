@@ -140,27 +140,17 @@ export const WatchExplodeScroll: React.FC = () => {
     ctx.fillStyle = BACKGROUND_COLOR;
     ctx.fillRect(0, 0, clientWidth, clientHeight);
 
-    // Viewport Aspect-Adaptive Scaling Math (Fully visible frames under 500px & mobile viewports)
+    // Viewport Aspect-Adaptive Scaling Math (Landscape cover, portrait smart fit)
     const imgRatio = img.width / img.height;
     const canvasRatio = clientWidth / clientHeight;
 
     let drawW: number;
     let drawH: number;
 
-    if (clientWidth < 500) {
-      // Under 500px mobile viewports: fit frames 100% fully visible inside viewport with safe margins
-      const maxW = clientWidth * 0.88;
-      const maxH = clientHeight * 0.58;
-      const fitScale = Math.min(maxW / img.width, maxH / img.height);
-      drawW = img.width * fitScale;
-      drawH = img.height * fitScale;
-    } else if (clientWidth < 640 || canvasRatio < 1.0) {
-      // Mobile portrait / small tablets (500px - 640px)
-      const maxW = clientWidth * 0.92;
-      const maxH = clientHeight * 0.68;
-      const fitScale = Math.min(maxW / img.width, maxH / img.height);
-      drawW = img.width * fitScale;
-      drawH = img.height * fitScale;
+    if (clientWidth < 640 || canvasRatio < 2.0) {
+      // On vertical mobile/portrait screens, fit watch mechanism horizontally with responsive margins so exploded parts are never cut off
+      drawW = clientWidth * 1.3;
+      drawH = drawW / imgRatio;
     } else if (canvasRatio > imgRatio) {
       drawW = clientWidth;
       drawH = clientWidth / imgRatio;
@@ -170,10 +160,7 @@ export const WatchExplodeScroll: React.FC = () => {
     }
 
     const drawX = (clientWidth - drawW) / 2;
-    // On screens under 500px, position frame with optimal vertical alignment so exploded parts remain prominent & fully unclipped
-    const drawY = clientWidth < 500
-      ? Math.max(65, (clientHeight - drawH) / 2 - 20)
-      : (clientHeight - drawH) / 2;
+    const drawY = (clientHeight - drawH) / 2;
 
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
