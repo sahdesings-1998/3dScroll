@@ -48,17 +48,17 @@ export const WatchExplodeScroll: React.FC = () => {
       }
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
-      
+
       osc.type = 'triangle';
       osc.frequency.setValueAtTime(1100 + Math.random() * 300, ctx.currentTime);
       osc.frequency.exponentialRampToValueAtTime(300, ctx.currentTime + 0.03);
-      
+
       gain.gain.setValueAtTime(0.06, ctx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.03);
-      
+
       osc.connect(gain);
       gain.connect(ctx.destination);
-      
+
       osc.start();
       osc.stop(ctx.currentTime + 0.03);
     } catch {
@@ -80,7 +80,7 @@ export const WatchExplodeScroll: React.FC = () => {
         loadedImages[i] = img;
         loadedCount++;
         setLoadProgress(Math.floor((loadedCount / TOTAL_FRAMES) * 100));
-        
+
         if (loadedCount === TOTAL_FRAMES) {
           setImages(loadedImages);
           setIsLoading(false);
