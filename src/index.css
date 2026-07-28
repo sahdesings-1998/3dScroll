@@ -46,15 +46,23 @@
 
 /* White theme glassmorphism & custom utility classes */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.82);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(226, 232, 240, 0.9);
   box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
 }
 
+@media (max-width: 640px) {
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+}
+
 .glass-panel-accent {
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(203, 213, 225, 0.9);
@@ -74,8 +82,39 @@
   letter-spacing: 0.05em;
 }
 
+/* Fluid Typography Utilities */
+.text-fluid-hero {
+  font-size: clamp(2.25rem, 6vw + 1rem, 7.5rem);
+  line-height: 0.95;
+}
+
+.text-fluid-title {
+  font-size: clamp(1.75rem, 4vw + 0.5rem, 3.75rem);
+  line-height: 1.1;
+}
+
+.text-fluid-sub {
+  font-size: clamp(0.875rem, 1.5vw + 0.5rem, 1.25rem);
+  line-height: 1.5;
+}
+
+/* Dynamic Safe Area Padding for Mobile Devices (Notch / Home Bar) */
+.safe-pt {
+  padding-top: max(1rem, env(safe-area-inset-top));
+}
+.safe-pb {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+/* Touch Target Minimum Size Helper */
+.touch-target {
+  min-width: 44px;
+  min-height: 44px;
+}
+
 /* Subtle light noise overlay effect */
 .bg-noise {
   background-image: radial-gradient(rgba(15, 23, 42, 0.03) 1px, transparent 0);
   background-size: 24px 24px;
 }
+
