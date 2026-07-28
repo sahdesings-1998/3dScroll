@@ -164,7 +164,9 @@ export const WatchExplodeScroll: React.FC = () => {
     ctx.restore();
   }, [images]);
 
-  // Sync motion frame index with window scroll
+  const rafIdRef = useRef<number | null>(null);
+
+  // Sync motion frame index with window scroll with 60 FPS RAF throttling
   useMotionValueEvent(frameIndexMotion, 'change', (latest) => {
     const targetIdx = Math.round(latest);
     if (targetIdx !== currentFrameIndex) {
@@ -174,7 +176,13 @@ export const WatchExplodeScroll: React.FC = () => {
         lastTickFrameRef.current = targetIdx;
       }
     }
-    requestAnimationFrame(() => renderFrame(latest));
+    if (rafIdRef.current !== null) {
+      cancelAnimationFrame(rafIdRef.current);
+    }
+    rafIdRef.current = requestAnimationFrame(() => {
+      renderFrame(latest);
+      rafIdRef.current = null;
+    });
   });
 
   // Window resize listener
@@ -267,9 +275,9 @@ export const WatchExplodeScroll: React.FC = () => {
         />
 
         {/* Dynamic Darkness & Contrast Overlay Gradients for 100% Readability */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,0.20)_0%,_rgba(5,5,5,0.70)_65%,_rgba(5,5,5,0.95)_100%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,0.15)_0%,_rgba(5,5,5,0.65)_65%,_rgba(5,5,5,0.92)_100%)] pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/85 via-transparent to-[#050505]/95 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/50 via-transparent to-[#050505]/50 pointer-events-none hidden md:block" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-[#050508]/90 via-[#050508]/30 to-transparent pointer-events-none" />
       </div>
 
       {/* 3. Persistent Floating Telemetry HUD */}
@@ -332,30 +340,28 @@ export const WatchExplodeScroll: React.FC = () => {
         </div>
       )}
 
-      {/* 4. High-Contrast Accessible Content Sections Layer */}
+      {/* 4. Minimalist Bottom-Left Aligned Hero Section */}
       <div className="relative z-10 w-full bg-transparent">
 
-        {/* SECTION 1: HERO */}
-        <section className="min-h-screen flex flex-col items-center justify-center text-center px-4 py-20 bg-transparent">
-          <div className="max-w-3xl space-y-6 bg-[#08080d]/65 backdrop-blur-xl p-8 sm:p-12 rounded-3xl border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
-            <div className="inline-flex items-center space-x-2 bg-amber-400/10 backdrop-blur-md px-4 py-1.5 rounded-full border border-amber-400/40 text-amber-300 text-xs font-mono-tech uppercase tracking-widest font-semibold">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>ULTRA-HIGH PRECISION 4K EXPERIENCE</span>
+        {/* SECTION 1: MINIMALIST HERO (BOTTOM-LEFT ALIGNED) */}
+        <section className="relative min-h-screen flex items-end justify-start px-6 sm:px-12 md:px-16 pb-16 sm:pb-24 pt-32 bg-transparent">
+          <div className="max-w-xl space-y-4 bg-[#050508]/75 backdrop-blur-2xl p-6 sm:p-8 md:p-10 rounded-2xl border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.85)]">
+            <div className="inline-flex items-center space-x-2 bg-amber-400/15 backdrop-blur-md px-3.5 py-1 rounded-full border border-amber-400/40 text-amber-300 text-[11px] font-mono-tech uppercase tracking-widest font-semibold">
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <span>CALIBRE SR-01</span>
             </div>
 
-            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extralight tracking-tighter text-white uppercase drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
+            <h1 className="text-4xl sm:text-6xl md:text-7xl font-extralight tracking-tighter text-white uppercase drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)]">
               SR-TAKAT
             </h1>
 
-            <p className="text-base sm:text-xl md:text-2xl text-gray-200 font-light max-w-xl mx-auto tracking-wide drop-shadow-md">
-              PRECISION ENGINEERING UNVEILED
+            <p className="text-sm sm:text-base md:text-lg text-gray-200 font-light tracking-wide leading-relaxed drop-shadow-md">
+              PRECISION HOROLOGY UNVEILED
             </p>
 
-            <div className="pt-8 flex flex-col items-center gap-3">
-              <p className="text-xs font-mono-tech text-amber-300/90 tracking-[0.25em] uppercase flex items-center gap-2 font-medium">
-                <span>SCROLL DOWN TO DISASSEMBLE</span>
-              </p>
-              <ChevronDown className="w-5 h-5 animate-bounce text-amber-400" />
+            <div className="pt-3 flex items-center space-x-3 text-amber-300/90 text-xs font-mono-tech tracking-widest uppercase font-medium">
+              <ChevronDown className="w-4 h-4 animate-bounce text-amber-400" />
+              <span>SCROLL TO DISASSEMBLE</span>
             </div>
           </div>
         </section>
