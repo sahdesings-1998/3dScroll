@@ -151,9 +151,9 @@ export const WatchExplodeScroll: React.FC = () => {
     let scaleFactor: number;
     if (clientWidth < 500) {
       // Under 500px: drawW = clientWidth * 1.2 for immersive mobile experience
-      scaleFactor = 1.5;
+      scaleFactor = 1.3;
     } else if (clientWidth < 640) {
-      scaleFactor = 1.0;
+      scaleFactor = 1.2;
     } else if (clientWidth < 1024) {
       scaleFactor = 0.9;
     } else if (clientWidth < 1440) {
