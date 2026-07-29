@@ -140,23 +140,43 @@ export const WatchExplodeScroll: React.FC = () => {
     ctx.fillStyle = BACKGROUND_COLOR;
     ctx.fillRect(0, 0, clientWidth, clientHeight);
 
-    // Viewport Aspect-Adaptive Scaling Math (Landscape cover, portrait smart fit)
+    // Viewport Aspect-Adaptive Scaling Math (Responsive watch bg framer)
     const imgRatio = img.width / img.height;
     const canvasRatio = clientWidth / clientHeight;
 
     let drawW: number;
     let drawH: number;
 
-    if (clientWidth < 640 || canvasRatio < 2.0) {
-      // On vertical mobile/portrait screens, fit watch mechanism horizontally with responsive margins so exploded parts are never cut off
-      drawW = clientWidth * 1.3;
+    // Responsive scale factor based on viewport width
+    let scaleFactor: number;
+    if (clientWidth < 500) {
+      // Under 500px: drawW = clientWidth * 1.2 for immersive mobile experience
+      scaleFactor = 1.5;
+    } else if (clientWidth < 640) {
+      scaleFactor = 1.0;
+    } else if (clientWidth < 1024) {
+      scaleFactor = 0.9;
+    } else if (clientWidth < 1440) {
+      scaleFactor = 0.85;
+    } else {
+      scaleFactor = 0.8;
+    }
+
+    if (clientWidth < 640 || canvasRatio < 1.8) {
+      // Mobile, tablet, and portrait viewports
+      drawW = clientWidth * scaleFactor;
       drawH = drawW / imgRatio;
     } else if (canvasRatio > imgRatio) {
-      drawW = clientWidth;
-      drawH = clientWidth / imgRatio;
+      // Widescreen landscape viewports
+      drawW = clientWidth * scaleFactor;
+      drawH = drawW / imgRatio;
+      if (drawH > clientHeight * 0.95) {
+        drawH = clientHeight * 0.95;
+        drawW = drawH * imgRatio;
+      }
     } else {
-      drawH = clientHeight;
-      drawW = clientHeight * imgRatio;
+      drawH = clientHeight * scaleFactor;
+      drawW = drawH * imgRatio;
     }
 
     const drawX = (clientWidth - drawW) / 2;
